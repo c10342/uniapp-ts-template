@@ -1,6 +1,6 @@
 <template>
   <view class="content">
-    <image class="logo" src="/static/logo.png" />
+    <!-- <image class="logo" src="/static/logo.png" /> -->
     <view class="text-area">
       <text class="title">{{ title }}</text>
     </view>
@@ -13,31 +13,38 @@
     >
       <text>这是一个通栏卡片 ，通栏没有外边距，左右会贴合父元素。</text>
     </uni-card>
-    {{ system.lang }}
-
+    {{ system.lang }}--{{ t("common.loading") }}
+    <button @click="onLang(LangEnum.zhCN)">中文</button>
+    <button @click="onLang(LangEnum.enUS)">英文</button>
     <button :loading="loading" @click="onClick">request</button>
-
     <button @click="onSuccess">success</button>
     <button @click="onError">error</button>
     <button @click="onWarn">warn</button>
+    <button @click="onLoading">loading</button>
   </view>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { useSystemStore } from "@/store";
-import { useRequest } from "@/hooks";
-import { getTopicDetail } from "@/api";
-import { showErrorMessage, showSuccessMessage, showWarnMessage } from "@/utils";
+import { useLocale, useRequest } from "@/hooks";
+import { getTopicsList } from "@/api";
+import {
+  showErrorMessage,
+  showLoading,
+  showSuccessMessage,
+  showWarnMessage
+} from "@/utils";
+import { LangEnum } from "@/enums";
 
 const title = ref("Hello");
 
 const system = useSystemStore();
 
+const { t } = useLocale();
+
 const { sendRequest, loading } = useRequest(async () => {
-  // const res = await getTopicsList({ limit: 1 });
-  // console.log(res);
-  const res = await getTopicDetail("1");
+  const res = await getTopicsList({ limit: 1 });
   console.log(res);
 });
 
@@ -46,13 +53,27 @@ const onClick = () => {
 };
 
 const onSuccess = () => {
-  showSuccessMessage("success");
+  showSuccessMessage("success").then((res) => {
+    console.log(res);
+  });
 };
 const onError = () => {
   showErrorMessage("error");
 };
 const onWarn = () => {
   showWarnMessage("warn");
+};
+
+const onLoading = () => {
+  showLoading().then((res) => {
+    setTimeout(() => {
+      res.close();
+    }, 2000);
+  });
+};
+
+const onLang = (lang: LangEnum) => {
+  system.setLang(lang);
 };
 </script>
 
