@@ -34,14 +34,20 @@ export class Request {
 
   sendRequest<T = any>(config: RequestConfig) {
     return new Promise<T>((resolve, reject) => {
+      const mergeConfig = {
+        ...this.config,
+        ...config
+      };
+
       uni.request({
-        timeout: this.config.timeout,
-        ...config,
-        url: this.buildUrl(config),
+        ...mergeConfig,
+        url: this.buildUrl(mergeConfig),
         success(result) {
           resolve(result.data as T);
         },
-        fail: reject
+        fail(result) {
+          reject(result);
+        }
       });
     });
   }
