@@ -1,0 +1,32 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["esnext", "dom"],
+    "types": [
+      // uni API 相关的 TypeScript 类型，需要安装 @dcloudio/types
+      "@dcloudio/types",
+      // 为 uni-app 组件提供 TypeScript 类型，需要安装 @uni-helper/uni-app-types
+      "@uni-helper/uni-app-types",
+      // 为 uni-app 扩展组件提供 TypeScript 类型
+      "@uni-helper/uni-ui-types",
+      // 为微信小程序提供 TypeScript 类型
+      "@types/wechat-miniprogram"
+    ]
+  },
+  "vueCompilerOptions": {
+    // 调整 Volar（Vue 语言服务工具）解析行为，用于为 uni-app 组件提供 TypeScript 类型
+    "plugins": ["@uni-helper/uni-app-types/volar-plugin"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "*.d.ts"
+  ]
+}
