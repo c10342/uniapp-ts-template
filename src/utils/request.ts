@@ -45,9 +45,7 @@ export class Request {
         success(result) {
           resolve(result.data as T);
         },
-        fail(result) {
-          reject(result);
-        }
+        fail: reject
       });
     });
   }

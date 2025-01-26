@@ -16,6 +16,10 @@
     {{ system.lang }}
 
     <button :loading="loading" @click="onClick">request</button>
+
+    <button @click="onSuccess">success</button>
+    <button @click="onError">error</button>
+    <button @click="onWarn">warn</button>
   </view>
 </template>
 
@@ -23,19 +27,32 @@
 import { ref } from "vue";
 import { useSystemStore } from "@/store";
 import { useRequest } from "@/hooks";
-import { getTopicsList } from "@/api";
+import { getTopicDetail } from "@/api";
+import { showErrorMessage, showSuccessMessage, showWarnMessage } from "@/utils";
 
 const title = ref("Hello");
 
 const system = useSystemStore();
 
 const { sendRequest, loading } = useRequest(async () => {
-  const res = await getTopicsList({ limit: 1 });
+  // const res = await getTopicsList({ limit: 1 });
+  // console.log(res);
+  const res = await getTopicDetail("1");
   console.log(res);
 });
 
 const onClick = () => {
   sendRequest();
+};
+
+const onSuccess = () => {
+  showSuccessMessage("success");
+};
+const onError = () => {
+  showErrorMessage("error");
+};
+const onWarn = () => {
+  showWarnMessage("warn");
 };
 </script>
 
