@@ -1,3 +1,5 @@
+import { requestUrl } from "@/config";
+
 interface Config {
   baseUrl?: string;
   timeout?: number;
@@ -60,3 +62,8 @@ export class Request {
     });
   }
 }
+
+export const request = new Request({
+  timeout: 1000 * 60,
+  baseUrl: requestUrl
+});

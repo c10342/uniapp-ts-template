@@ -14,16 +14,29 @@
       <text>这是一个通栏卡片 ，通栏没有外边距，左右会贴合父元素。</text>
     </uni-card>
     {{ system.lang }}
+
+    <button :loading="loading" @click="onClick">request</button>
   </view>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { useSystemStore } from "@/store";
+import { useRequest } from "@/hooks";
+import { getTopicsList } from "@/api";
 
 const title = ref("Hello");
 
 const system = useSystemStore();
+
+const { sendRequest, loading } = useRequest(async () => {
+  const res = await getTopicsList({ limit: 1 });
+  console.log(res);
+});
+
+const onClick = () => {
+  sendRequest();
+};
 </script>
 
 <style>
