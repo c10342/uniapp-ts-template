@@ -7,3 +7,5 @@ export * from "./toast";
 export * from "./is";
 
 export * from "./storage";
+
+export * from "./router";

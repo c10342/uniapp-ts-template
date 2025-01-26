@@ -21,6 +21,7 @@
     <button @click="onError">error</button>
     <button @click="onWarn">warn</button>
     <button @click="onLoading">loading</button>
+    <button @click="onLogin">登录</button>
   </view>
 </template>
 
@@ -30,12 +31,13 @@ import { useSystemStore } from "@/store";
 import { useLocale, useRequest } from "@/hooks";
 import { getTopicsList } from "@/api";
 import {
+  router,
   showErrorMessage,
   showLoading,
   showSuccessMessage,
   showWarnMessage
 } from "@/utils";
-import { LangEnum } from "@/enums";
+import { LangEnum, RouteEnum } from "@/enums";
 
 const title = ref("Hello");
 
@@ -74,6 +76,15 @@ const onLoading = () => {
 
 const onLang = (lang: LangEnum) => {
   system.setLang(lang);
+};
+
+const onLogin = () => {
+  router.push({
+    name: RouteEnum.Login,
+    query: {
+      jumpTo: RouteEnum.Home
+    }
+  });
 };
 </script>
 
