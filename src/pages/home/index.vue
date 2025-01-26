@@ -27,10 +27,12 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { onLoad } from "@dcloudio/uni-app";
 import { useSystemStore } from "@/store";
 import { useLocale, useRequest } from "@/hooks";
 import { getTopicsList } from "@/api";
 import {
+  onDataReady,
   router,
   showErrorMessage,
   showLoading,
@@ -86,6 +88,14 @@ const onLogin = () => {
     }
   });
 };
+
+onLoad(() => {
+  console.log("onLoad");
+});
+
+onDataReady(() => {
+  console.log("data ready");
+});
 </script>
 
 <style>

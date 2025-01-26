@@ -9,3 +9,5 @@ export * from "./is";
 export * from "./storage";
 
 export * from "./router";
+
+export * from "./lifeCycle";
