@@ -22,6 +22,9 @@
     <button @click="onWarn">warn</button>
     <button @click="onLoading">loading</button>
     <button @click="onLogin">登录</button>
+
+    <BaseIcon></BaseIcon>
+    <text>111</text>
   </view>
 </template>
 

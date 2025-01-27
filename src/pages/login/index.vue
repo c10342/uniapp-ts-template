@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { onDataReady, router } from "@/utils";
+import { onGlobalDataReady, router } from "@/utils";
 import { RouteEnum } from "@/enums";
 
 const onBack = () => {
@@ -21,7 +21,7 @@ onLoad((event) => {
   query.value = event;
 });
 
-onDataReady(() => {
+onGlobalDataReady().then(() => {
   console.log("login data ready");
 });
 
