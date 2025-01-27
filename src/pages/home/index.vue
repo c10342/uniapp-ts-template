@@ -32,7 +32,7 @@ import { useSystemStore } from "@/store";
 import { useLocale, useRequest } from "@/hooks";
 import { getTopicsList } from "@/api";
 import {
-  onDataReady,
+  onGlobalDataReady,
   router,
   showErrorMessage,
   showLoading,
@@ -93,8 +93,8 @@ onLoad(() => {
   console.log("onLoad");
 });
 
-onDataReady(() => {
-  console.log("data ready");
+onGlobalDataReady().then(() => {
+  console.log("ready");
 });
 </script>
 

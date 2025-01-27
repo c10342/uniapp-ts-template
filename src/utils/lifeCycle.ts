@@ -4,41 +4,21 @@ let isDataReady = false;
 // 数据准备完成之后的回调
 let dataReadyCallback: Array<(...args: any) => any> = [];
 
-// 个给app.vue调用
-export function setDataReady() {
+// 给app.vue调用，全局数据
+export function setGlobalDataReady() {
   isDataReady = true;
   const callbacks = dataReadyCallback.slice();
   callbacks.forEach((cb) => cb());
   dataReadyCallback = [];
 }
 
-// export function onDataReady(): Promise<void> {
-//   return new Promise((resolve) => {
-//     if (isDataReady) {
-//       resolve();
-//       return;
-//     }
-//     const action = () => {
-//       resolve();
-//     };
-//     dataReadyCallback.push(action);
-//   });
-// }
-
-export function onDataReady(action: (...args: any) => any) {
-  const pages = getCurrentPages();
-  const currentPage = pages[pages.length - 1];
-  // 拦截，重写onload方法
-  const oldOnLoad = currentPage.onLoad;
-  currentPage.onLoad = function onLoad(...args: any) {
-    oldOnLoad?.(...args);
+// 全局数据准备完成，如用户数据
+export function onGlobalDataReady(): Promise<void> {
+  return new Promise((resolve) => {
     if (isDataReady) {
-      action();
-    } else {
-      const index = dataReadyCallback.findIndex((fn) => fn === action);
-      if (index === -1) {
-        dataReadyCallback.push(action);
-      }
+      resolve();
+      return;
     }
-  };
+    dataReadyCallback.push(resolve);
+  });
 }

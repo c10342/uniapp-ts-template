@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from "@dcloudio/uni-app";
-import { hideLoading, setDataReady, showLoading } from "@/utils";
+import { hideLoading, setGlobalDataReady, showLoading } from "@/utils";
 
 function getUserInfo() {
   return new Promise((resolve) => {
@@ -18,7 +18,7 @@ onLaunch(() => {
   showLoading();
   initData()
     .then(() => {
-      setDataReady();
+      setGlobalDataReady();
     })
     .finally(() => {
       hideLoading();
